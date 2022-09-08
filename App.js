@@ -1,19 +1,18 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import MyStack from './navigation';
 import Home from './screens/home';
 import Quiz from './screens/quiz';
 import Results from './screens/results';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      {/* <Text>this is the ctt!</Text> */}
-      <Home />
-      {/* <Quiz /> */}
-      {/* <Results /> */}
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MyStack />
+      </NavigationContainer>
+      // <StatusBar style="auto" />
   );
 };
 
