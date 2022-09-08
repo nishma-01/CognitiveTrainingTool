@@ -1,34 +1,56 @@
 import React from "react";
-import { SafeAreaView, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Title from "../components/title";
 
 const Home = ({navigation}) => {
   return (
-     <SafeAreaView>
+     <View style={styles.container}>
       <Title />
-      <View style={styles.container}>
+      <View style={styles.bannerContainer}>
       <ImageBackground 
       source={require('../assets/home-img1.png')}
-      style={styles.image}
+      style={styles.banner}
       resizeMode='contain'>
         </ImageBackground>
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate("Quiz")}>
-        <Text>Start</Text>
+      <TouchableOpacity 
+      onPress={() => navigation.navigate("Quiz")}
+      style={styles.button}>
+        <Text style={styles.buttonText} >Start</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
-  image: {
-    height: 300,
-    width: 300,
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+banner: {
+  height: 300,
+  width: 300,
+},
+bannercontainer: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  flex: 1,
+},
+container: {
+  paddingTop: 40,
+  paddingHorizontal: 20,
+  alignItems: 'center',
+  height: '100%',
+},
+button: {
+  width: '100%',
+  backgroundColor: '#008DB8',
+  padding: 16,
+  borderRadius: 16,
+  alignItems: 'center',
+  marginBottom: 30,
+},
+buttonText: {
+  fontSize: 22,
+  fontWeight: '600',
+  color: '#FFFF'
+},
 });

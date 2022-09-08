@@ -1,17 +1,17 @@
 import React from "react";
-import { SafeAreaView, TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 const Results = ({navigation}) => {
   return (
-  <SafeAreaView>
+  <View style={styles.container}>
     <View> 
       <Text>Results page</Text>
     </View>
 
-    <View style={styles.container}>
+    <View style={styles.bannerContainer}>
       <ImageBackground 
         source={require('../assets/home-img1.png')}
-        style={styles.image}
+        style={styles.banner}
         resizeMode='contain'>
       </ImageBackground>
     </View>
@@ -21,19 +21,24 @@ const Results = ({navigation}) => {
         <Text>HOME</Text>
       </TouchableOpacity>
     </View>
-  </SafeAreaView>
+  </View>
   );
 };
 
 export default Results;
 
 const styles = StyleSheet.create({
-  image: {
+  banner: {
   height: 300,
   width: 300,
 },
-  container: {
+  bannerContainer: {
   justifyContent: 'center',
   alignItems: 'center',
+},
+container: {
+  paddingTop: 40,
+  paddingHorizontal: 20,
+  height: '100%',
 },
 });
