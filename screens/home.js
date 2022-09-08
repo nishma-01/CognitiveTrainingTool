@@ -1,10 +1,10 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Title from "../components/title";
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
-     <View>
+     <SafeAreaView>
       <Title />
       <View style={styles.container}>
       <ImageBackground 
@@ -13,10 +13,10 @@ const Home = () => {
       resizeMode='contain'>
         </ImageBackground>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Quiz")}>
         <Text>Start</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

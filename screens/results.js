@@ -1,9 +1,9 @@
 import React from "react";
-import { TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
 
-const Results = () => {
+const Results = ({navigation}) => {
   return (
-  <View>
+  <SafeAreaView>
     <View> 
       <Text>Results page</Text>
     </View>
@@ -17,11 +17,11 @@ const Results = () => {
     </View>
 
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <Text>HOME</Text>
       </TouchableOpacity>
     </View>
-  </View>
+  </SafeAreaView>
   );
 };
 

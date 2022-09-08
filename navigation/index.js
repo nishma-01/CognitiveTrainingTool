@@ -9,9 +9,18 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Quiz" component={Quiz} />
-      <Stack.Screen name="Results" component={Results} />
+      <Stack.Screen 
+      name="Home" 
+      component={Home} 
+      options={{headerShown: false}} />
+      <Stack.Screen 
+      name="Quiz" 
+      component={Quiz}
+      options={{headerShown: false}} />
+      <Stack.Screen 
+      name="Results" 
+      component={Results} 
+      options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 }

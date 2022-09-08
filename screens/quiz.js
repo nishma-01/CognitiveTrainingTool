@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const Quiz = () => {
+const Quiz = ({navigation}) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.top}>
         <Text>This is a question</Text>
       </View>
@@ -30,8 +30,11 @@ const Quiz = () => {
         <TouchableOpacity>
           <Text>NEXT</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Results")}>
+          <Text>END</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
