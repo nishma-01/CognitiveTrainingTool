@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 const Quiz = ({navigation}) => {
+
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [questions, setQuestions] = useState();
+  const getQuiz = async() => {
+    const url = 'https://opentdb.com/api.php?amount=10&type=multiple';
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.results[0]);
+    setQuestions(data.results);
+  };
+  useEffect(() => { getQuiz() }, []);
+
+  const handleNextPress=() => {
+    setQuestionNumber(questionNumber + 1)
+  }
+
   return (
     <View style={styles.container}>
+      {questions && (
+
+      <View style={styles.parent}>
       <View style={styles.top}>
-        <Text style={styles.question}>Q. This is a question</Text>
+        <Text style={styles.question}>Q. {questions[questionNumber].question}</Text>
       </View>
 
       <View style={styles.options}>
@@ -27,14 +46,22 @@ const Quiz = ({navigation}) => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>SKIP</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+
+        {questionNumber !== 9 && <TouchableOpacity 
+          style={styles.button}
+          onPress = {handleNextPress}>
           <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity onPress={() => navigation.navigate("Results")}>
-          <Text>END</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity> }
+
+        {questionNumber === 9 && <TouchableOpacity 
+          style={styles.button}
+          onPress = {() => null}>
+          <Text style={styles.buttonText}>SHOW RESULTS</Text>
+        </TouchableOpacity> }
       </View>
     </View>
+      )}
+      </View>
   );
 };
 
@@ -85,5 +112,8 @@ optionsButton: {
   backgroundColor: '#00AFB9',
   paddingHorizontal: 12,
   borderRadius: 12,
+},
+parent: {
+  height: '100%',
 },
 });
