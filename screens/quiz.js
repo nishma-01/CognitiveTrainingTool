@@ -46,6 +46,15 @@ const Quiz = ({navigation}) => {
       setQuestionNumber(questionNumber + 1)
       setOptions(generateOptionsAndShuffle(questions[questionNumber + 1]))
     }
+    if(questionNumber === 9) {
+      handleShowResult()
+    }
+  }
+
+  const handleShowResult = () => {
+    navigation.navigate('Results', { //have to ensure this is in the results screen too
+    score: score
+    })
   }
 
   return (
@@ -73,19 +82,19 @@ const Quiz = ({navigation}) => {
       </View> 
 
       <View style={styles.bottom}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>SKIP</Text>
-        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>NEXT</Text>
+        </TouchableOpacity> */}
 
         {questionNumber !== 9 && <TouchableOpacity 
           style={styles.button}
           onPress = {handleNextPress}>
-          <Text style={styles.buttonText}>NEXT</Text>
+          <Text style={styles.buttonText}>SKIP</Text>
         </TouchableOpacity> }
 
         {questionNumber === 9 && <TouchableOpacity 
           style={styles.button}
-          onPress = {() => null}>
+          onPress = {handleShowResult}>
           <Text style={styles.buttonText}>SHOW RESULTS</Text>
         </TouchableOpacity> }
       </View>

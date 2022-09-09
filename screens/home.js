@@ -5,7 +5,7 @@ import Title from "../components/title";
 const Home = ({navigation}) => {
   return (
      <View style={styles.container}>
-      <Title />
+      <Title titleText='Cognitive Training Tool' />
       <View style={styles.bannerContainer}>
       <ImageBackground 
       source={require('../assets/home-img1.png')}
