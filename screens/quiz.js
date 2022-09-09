@@ -13,6 +13,8 @@ const Quiz = ({navigation}) => {
   const [questions, setQuestions] = useState();
   const [questionNumber, setQuestionNumber] = useState(0);
   const [options, setOptions] = useState([]);
+  const [score, setScore] = useState(0);
+
   const getQuiz = async() => {
     const url = 'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986';
     const res = await fetch(url);
@@ -35,6 +37,17 @@ const Quiz = ({navigation}) => {
     return(options)
   }
 
+  const handleSelectedOption = (_option) => {
+    if(_option === questions[questionNumber].correct_answer) {
+      setScore(score + 10)
+      console.log(score);
+    }
+    if(questionNumber !== 9) {
+      setQuestionNumber(questionNumber + 1)
+      setOptions(generateOptionsAndShuffle(questions[questionNumber + 1]))
+    }
+  }
+
   return (
     <View style={styles.container}>
       {questions && (
@@ -45,16 +58,16 @@ const Quiz = ({navigation}) => {
       </View>
 
       <View style={styles.options}>
-        <TouchableOpacity style={styles.optionsButton}>
+        <TouchableOpacity style={styles.optionsButton} onPress={() => handleSelectedOption(options[0])}>
           <Text style={styles.optionsText}>{decodeURIComponent(options[0])}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionsButton}>
+        <TouchableOpacity style={styles.optionsButton} onPress={() => handleSelectedOption(options[1])}>
           <Text style={styles.optionsText}>{decodeURIComponent(options[1])}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionsButton}>
+        <TouchableOpacity style={styles.optionsButton} onPress={() => handleSelectedOption(options[2])}>
           <Text style={styles.optionsText}>{decodeURIComponent(options[2])}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionsButton}>
+        <TouchableOpacity style={styles.optionsButton} onPress={() => handleSelectedOption(options[3])}>
           <Text style={styles.optionsText}>{decodeURIComponent(options[3])}</Text>
         </TouchableOpacity>
       </View> 
