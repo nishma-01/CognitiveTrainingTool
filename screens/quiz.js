@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i-- ) {
@@ -10,6 +11,7 @@ const shuffleArray = (array) => {
 
 const Quiz = ({navigation}) => {
   
+  const [modalOpen, setModalOpen] = useState(false);
   const [questions, setQuestions] = useState();
   const [questionNumber, setQuestionNumber] = useState(0);
   const [options, setOptions] = useState([]);
@@ -49,6 +51,7 @@ const Quiz = ({navigation}) => {
     if(questionNumber === 9) {
       handleShowResult()
     }
+    
   }
 
   const handleShowResult = () => {
@@ -59,6 +62,36 @@ const Quiz = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+
+      <Modal visible={modalOpen} animationType='slide'>
+        <View style={styles.container}>
+            <AntDesign
+              name="closecircle" 
+              size={30} 
+              color="#F07167" 
+              style={styles.modalToggle}
+              onPress={() => setModalOpen(false)}
+            />
+          <Text style={styles.modalText}>
+            {`INSTRUCTIONS: \nThis quiz presents 10 general knowledge questions. Read the question and select the answer you think is correct.
+            \nIf you are stuck you may press the 'SKIP' button on the bottom left of the screen to skip the question. 
+            \nAfter you have selected an answer, the question will automatically move on to the next. Once all questions have been answered, your results will automatically pop up.
+            \nRESULTS: \nFor each correct answer you will score 10 points. Each wrong answer or skipped question will score 0 points. 
+            \nYour results are displayed at the end of the quiz and depending on your score, you will recieve a classification for your achievement level - try to beat this next time!
+            \nBENEFITS: \nStudies have shown that practicing quizzes improve memory, recall and ultimately cognition overall. 
+            \nImproving memory has been shown to result in 'transfer effects', meaning it in turn improves other area of cognition as a secondary effect. Hence, training for a short time each day may improve these areas of cognition too.
+          `}</Text>
+        </View>
+      </Modal>
+
+        <AntDesign
+              name="questioncircle" 
+              size={30} 
+              color="#F07167" 
+              style={styles.modalToggle}
+              onPress={() => setModalOpen(true)}
+            />
+
       {questions && (
 
       <View style={styles.parent}>
@@ -82,9 +115,7 @@ const Quiz = ({navigation}) => {
       </View> 
 
       <View style={styles.bottom}>
-        {/* <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity> */}
+        
 
         {questionNumber !== 9 && <TouchableOpacity 
           style={styles.button}
@@ -108,6 +139,7 @@ export default Quiz;
 
 const styles = StyleSheet.create({
 container: {
+  backgroundColor: '#F8EDEB',
   paddingTop: 40,
   paddingHorizontal: 20,
   height: '100%',
@@ -130,8 +162,8 @@ button: {
   padding: 12,
   paddingHorizontal: 16,
   borderRadius: 16,
-  alignItems: 'center',
-  marginBottom: 30,
+  alignSelf: 'center',
+  marginBottom: 70,
 },
 buttonText: {
   fontSize: 16,
@@ -154,5 +186,13 @@ optionsButton: {
 },
 parent: {
   height: '100%',
+},
+modalToggle: {
+  paddingTop: 30,
+  alignSelf: 'center',
+},
+modalText: {
+  textAlign: 'justify',
+  
 },
 });
