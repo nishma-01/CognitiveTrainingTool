@@ -1,21 +1,36 @@
 import React from "react";
-import { TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, Image, StyleSheet, Text, View } from 'react-native';
 import Title from "../components/title";
 
 const Results = ({navigation, route}) => {
-  const params = route.params
-  console.log(params)
+  const {score} = route.params
+  
+  const resultsBanner = 
+    score < 30 ? "https://cdni.iconscout.com/illustration/premium/thumb/startup-3430726-2888289.png" :
+    score > 70 ? "https://cdni.iconscout.com/illustration/premium/thumb/finished-product-purchase-process-3328216-2809502.png" :
+    "https://cdni.iconscout.com/illustration/premium/thumb/young-woman-sitting-with-ipad-having-great-idea-5352699-4470467.png"
+
+  const resultsClassification =
+  score < 30 ? <Text>LEVEL: BEGINNER</Text> :
+  score > 70 ? <Text>LEVEL: ADVANCED</Text> :
+  <Text>LEVEL: INTERMEDIATE</Text>
 
   return (
   <View style={styles.container}>
       <Title titleText='RESULTS' />
+      <Text style={styles.scoreValue}>{score}</Text>
+
     <View style={styles.bannerContainer}>
-      <ImageBackground 
-        source={require('../assets/home-img1.png')}
+    <Image
+        source={{
+          uri: resultsBanner,
+        }}
         style={styles.banner}
-        resizeMode='contain'>
-      </ImageBackground>
+        resizeMode='contain'
+        />
+        <Text style={styles.scoreValue}>{resultsClassification}</Text>
     </View>
+
       <TouchableOpacity 
       onPress={() => navigation.navigate("Home")}
       style={styles.button}>
@@ -56,4 +71,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFF'
   },
+  scoreValue: {
+    fontSize: 26,
+    fontWeight: '600',
+    paddingBottom: 20,
+    alignSelf: 'center',
+    },
   });
