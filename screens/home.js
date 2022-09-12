@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Title from "../components/title";
 
 const Home = ({navigation}) => {
@@ -7,16 +7,23 @@ const Home = ({navigation}) => {
      <View style={styles.container}>
       <Title titleText='Cognitive Training Tool' />
       <View style={styles.bannerContainer}>
-      <ImageBackground 
-      source={require('../assets/home-img1.png')}
+      <Image
+        source={{
+          uri:'https://cdni.iconscout.com/illustration/premium/thumb/q-and-a-service-3678714-3098907.png',
+        }}
       style={styles.banner}
-      resizeMode='contain'>
-        </ImageBackground>
+      resizeMode='contain'
+        />
       </View>
       <TouchableOpacity 
       onPress={() => navigation.navigate("Quiz")}
       style={styles.button}>
         <Text style={styles.buttonText} >Start</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+      onPress={() => navigation.navigate("Tips")}
+      style={styles.button}>
+        <Text style={styles.buttonText} >Tip of the Day</Text>
       </TouchableOpacity>
     </View>
   );
@@ -35,6 +42,8 @@ bannercontainer: {
   flex: 1,
 },
 container: {
+    backgroundColor: '#F8EDEB',
+
   paddingTop: 40,
   paddingHorizontal: 20,
   alignItems: 'center',
