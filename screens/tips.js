@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const Tips = ({navigation}) => {
   const [facts, setFacts] = useState();
@@ -27,6 +28,11 @@ const handleNextPress = () => {
     <View style={styles.container}> 
     {isLoading ? 
       <View style={styles.loader}>
+          <ActivityIndicator
+              size={100}
+              animating={true}
+              color={Colors.blue300}
+            />
         <Text style={styles.loaderText}>LOADING...</Text>
       </View> 
       : 

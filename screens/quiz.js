@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i-- ) {
@@ -97,9 +98,14 @@ const Quiz = ({navigation}) => {
             />
 
       {isLoading ? 
-      <View style={styles.loader}>
-        <Text style={styles.loaderText}>LOADING...</Text>
-      </View> 
+          <View style={styles.loader}>
+            <ActivityIndicator
+              size={100}
+              animating={true}
+              color={Colors.blue300}
+            />
+            <Text style={styles.loaderText}>LOADING...</Text>
+          </View> 
       : questions && (
 
       <View style={styles.parent}>
