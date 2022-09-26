@@ -1,6 +1,7 @@
 import React from "react";
-import { TouchableOpacity, Image, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, Image, StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Title from "../components/title";
+import { colors } from "../utils/colors";
 
 const Results = ({navigation, route}) => {
   const {score} = route.params
@@ -17,10 +18,20 @@ const Results = ({navigation, route}) => {
 
   return (
   <View style={styles.container}>
-      <Title titleText='RESULTS' />
-      <Text style={styles.scoreValue}>{score} out of 100</Text>
 
     <View style={styles.bannerContainer}>
+      <ImageBackground 
+        source={require('../assets/logo.jpg')}
+        style={styles.firstBanner}
+        resizeMode='contain'>
+      </ImageBackground>
+      <Title titleText='Your Results'/>
+    </View>
+        
+      <Text style={styles.scoreValue}>{score} out of 100</Text>
+      <Text style={styles.classification}>{resultsClassification}</Text>
+
+    <View style={styles.bannerImageContainer}>
     <Image
         source={{
           uri: resultsBanner,
@@ -28,8 +39,8 @@ const Results = ({navigation, route}) => {
         style={styles.banner}
         resizeMode='contain'
         />
-        <Text style={styles.scoreValue}>{resultsClassification}</Text>
     </View>
+        <Text style={styles.note}>Keep training and make sure to check the cognition tips!</Text>
 
       <TouchableOpacity 
       onPress={() => navigation.navigate("Home")}
@@ -43,6 +54,11 @@ const Results = ({navigation, route}) => {
 export default Results;
 
 const styles = StyleSheet.create({
+  firstBanner: {
+    height: 80,
+    width:80,
+    alignSelf: 'center',
+  },
   banner: {
     height: 300,
     width: 300,
@@ -52,16 +68,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
+  bannerImagecontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   container: {
-      backgroundColor: '#F8EDEB',
-    paddingTop: 40,
+    backgroundColor: colors.screenBackground,
+    paddingTop: 60,
     paddingHorizontal: 20,
     alignItems: 'center',
     height: '100%',
   },
   button: {
     width: '100%',
-    backgroundColor: '#008DB8',
+    backgroundColor: colors.darkBlue,
     padding: 16,
     borderRadius: 16,
     alignItems: 'center',
@@ -69,13 +90,28 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 22,
-    fontWeight: '600',
-    color: '#FFFF'
+    fontWeight: '700',
+    color: colors.white
   },
   scoreValue: {
     fontSize: 26,
     fontWeight: '600',
     paddingBottom: 20,
     alignSelf: 'center',
+    fontStyle: "italic",
     },
+    note: {
+      fontStyle: "italic",
+      fontSize: 14,
+      fontWeight: '600',
+      justifyContent: 'center',
+      paddingBottom: 20,
+      color: colors.salmonPink,
+    },
+    classification: {
+      fontSize: 26,
+      fontWeight: '600',
+      paddingBottom: 20,
+      alignSelf: 'center',
+      },
   });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator, Animated } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { colors } from "../utils/colors";
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i-- ) {
@@ -65,33 +65,31 @@ const Quiz = ({navigation}) => {
     })
   }
 
+  // Progress bar - not fully implemented due to difficulty with input range
   const [progress, setProgress] = useState(new Animated.Value(0));
   const progressAnim = progress.interpolate({
       inputRange: [0, 100],
       outputRange: ['0%','100%']
   })
   const renderProgressBar = () => {
-      return (
-          <View style={{
-              width: '100%',
-              height: 20,
-              borderRadius: 20,
-              backgroundColor: '#e26d5c',
-
-          }}>
-              <Animated.View style={[{
-                  height: 20,
-                  borderRadius: 20,
-                  backgroundColor: '#007ea7'
-              },{
-                  width: progressAnim
-              }]}>
-
-              </Animated.View>
-
-          </View>
-      )
-  }
+    return (
+      <View style={{
+        width: '100%',
+        height: 20,
+        borderRadius: 20,
+        backgroundColor: colors.salmonPink,
+      }}>
+        <Animated.View style={[{
+          height: 20,
+          borderRadius: 20,
+          backgroundColor: '#007ea7'
+        },
+        {
+          width: progressAnim
+        }]}>
+        </Animated.View>
+    </View>
+    )}
 
   return (
     <View style={styles.container}>
@@ -100,8 +98,8 @@ const Quiz = ({navigation}) => {
         <View style={styles.container}>
             <AntDesign
               name="closecircle" 
-              size={30} 
-              color="#F07167" 
+              size={35} 
+              color={colors.salmonPink} 
               style={styles.modalToggle}
               onPress={() => setModalOpen(false)}
             />
@@ -119,8 +117,8 @@ const Quiz = ({navigation}) => {
 
         <AntDesign
               name="questioncircle" 
-              size={30} 
-              color="#F07167" 
+              size={35} 
+              color={colors.salmonPink} 
               style={styles.modalToggle}
               onPress={() => setModalOpen(true)}
             />
@@ -130,7 +128,6 @@ const Quiz = ({navigation}) => {
             <ActivityIndicator
               size={"large"}
               animating={true}
-              color={Colors.blue300}
             />
             <Text style={styles.loaderText}>LOADING...</Text>
           </View> 
@@ -138,8 +135,14 @@ const Quiz = ({navigation}) => {
 
       <View style={styles.parent}>
       <View style={styles.top}>
-        <Text style={styles.question}>Q. {decodeURIComponent(questions[questionNumber].question)}</Text>
-        <Text style={styles.question}>Q. {questionNumber+1}/10</Text>
+
+      <View style={styles.questionNumContainer}>
+        <Text style={styles.questionNumber}>Q: {questionNumber+1}/10</Text>
+      </View>
+
+      <View style={styles.questionContainer}>
+        <Text style={styles.question}>{decodeURIComponent(questions[questionNumber].question)}</Text>
+      </View>
       </View>
 
       { renderProgressBar() }
@@ -171,7 +174,7 @@ const Quiz = ({navigation}) => {
         {questionNumber === 9 && <TouchableOpacity 
           style={styles.button}
           onPress = {handleShowResult}>
-          <Text style={styles.buttonText}>SKIP TO SHOW RESULTS</Text>
+          <Text style={styles.buttonText}>SKIP TO RESULTS</Text>
         </TouchableOpacity> }
       </View>
       </View>
@@ -184,7 +187,7 @@ export default Quiz;
 
 const styles = StyleSheet.create({
 container: {
-  backgroundColor: '#F8EDEB',
+  backgroundColor: colors.backgroundColor,
   paddingTop: 40,
   paddingHorizontal: 20,
   height: '100%',
@@ -203,29 +206,44 @@ bottom: {
   flexDirection: 'row',
 },
 button: {
-  backgroundColor: '#008DB8',
+  backgroundColor: colors.darkBlue,
   padding: 12,
-  paddingHorizontal: 16,
+  // paddingHorizontal: 20,
   borderRadius: 16,
   alignSelf: 'center',
-  marginBottom: 70,
+  marginBottom: 100,
 },
 buttonText: {
   fontSize: 16,
   fontWeight: '500',
-  color: '#FFFF'
+  color: colors.white,
+},
+questionNumContainer: {
+  paddingHorizontal: 12,
+},
+questionContainer: {
+  // paddingVertical: 16,
+  marginVertical: 16,
+  paddingHorizontal: 12,
 },
 question: {
-  fontSize: 24,
+  fontSize: 22,
+  fontWeight: '500',
+},
+questionNumber: {
+  fontSize: 20,
+  fontWeight: '800'
+
 },
 optionsText: {
-  fontSize: 16,
-  color: '#FFFF',
+  fontSize: 18,
+  fontWeight:'600',
+  color: colors.white,
 },
 optionsButton: {
   paddingVertical: 16,
   marginVertical: 10,
-  backgroundColor: '#00AFB9',
+  backgroundColor: colors.lightBlue,
   paddingHorizontal: 12,
   borderRadius: 12,
 },
@@ -234,6 +252,7 @@ parent: {
 },
 modalToggle: {
   paddingTop: 30,
+  paddingBottom: 20,
   alignSelf: 'center',
 },
 modalText: {
@@ -241,12 +260,12 @@ modalText: {
 },
 loader: {
   paddingTop: 100,
-  alignSelf: "center",
+  alignSelf: 'center',
 },
 loaderText: {
   fontSize: 40,
   fontWeight: '500',
-  color: '#008DB8',
-  alignContent: "center",
+  color: colors.darkBlue,
+  alignContent: 'center',
 },
 });
