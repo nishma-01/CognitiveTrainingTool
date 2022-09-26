@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator, Animated } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -47,7 +47,7 @@ const Quiz = ({navigation}) => {
   const handleSelectedOption = (_option) => {
     if(_option === questions[questionNumber].correct_answer) {
       setScore(score + 10)
-      console.log(score);
+      console.log(score)
     }
     if(questionNumber !== 9) {
       setQuestionNumber(questionNumber + 1)
@@ -63,6 +63,34 @@ const Quiz = ({navigation}) => {
     navigation.navigate('Results', { //have to ensure this is in the results screen too
     score: score
     })
+  }
+
+  const [progress, setProgress] = useState(new Animated.Value(0));
+  const progressAnim = progress.interpolate({
+      inputRange: [0, 100],
+      outputRange: ['0%','100%']
+  })
+  const renderProgressBar = () => {
+      return (
+          <View style={{
+              width: '100%',
+              height: 20,
+              borderRadius: 20,
+              backgroundColor: '#e26d5c',
+
+          }}>
+              <Animated.View style={[{
+                  height: 20,
+                  borderRadius: 20,
+                  backgroundColor: '#007ea7'
+              },{
+                  width: progressAnim
+              }]}>
+
+              </Animated.View>
+
+          </View>
+      )
   }
 
   return (
@@ -100,7 +128,7 @@ const Quiz = ({navigation}) => {
       {isLoading ? 
           <View style={styles.loader}>
             <ActivityIndicator
-              size={100}
+              size={"large"}
               animating={true}
               color={Colors.blue300}
             />
@@ -111,9 +139,13 @@ const Quiz = ({navigation}) => {
       <View style={styles.parent}>
       <View style={styles.top}>
         <Text style={styles.question}>Q. {decodeURIComponent(questions[questionNumber].question)}</Text>
+        <Text style={styles.question}>Q. {questionNumber+1}/10</Text>
       </View>
 
+      { renderProgressBar() }
+
       <View style={styles.options}>
+      
         <TouchableOpacity style={styles.optionsButton} onPress={() => handleSelectedOption(options[0])}>
           <Text style={styles.optionsText}>{decodeURIComponent(options[0])}</Text>
         </TouchableOpacity>
@@ -130,7 +162,6 @@ const Quiz = ({navigation}) => {
 
       <View style={styles.bottom}>
         
-
         {questionNumber !== 9 && <TouchableOpacity 
           style={styles.button}
           onPress = {handleNextPress}>
@@ -140,7 +171,7 @@ const Quiz = ({navigation}) => {
         {questionNumber === 9 && <TouchableOpacity 
           style={styles.button}
           onPress = {handleShowResult}>
-          <Text style={styles.buttonText}>SHOW RESULTS</Text>
+          <Text style={styles.buttonText}>SKIP TO SHOW RESULTS</Text>
         </TouchableOpacity> }
       </View>
       </View>

@@ -18,7 +18,7 @@ const Results = ({navigation, route}) => {
   return (
   <View style={styles.container}>
       <Title titleText='RESULTS' />
-      <Text style={styles.scoreValue}>{score}</Text>
+      <Text style={styles.scoreValue}>{score} out of 100</Text>
 
     <View style={styles.bannerContainer}>
     <Image
