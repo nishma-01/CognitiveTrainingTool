@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   tip: {
     fontSize: 18,
+    textAlign: 'justify',
   },
   categoryContainer: {
     paddingHorizontal: 12,
@@ -97,8 +98,8 @@ const styles = StyleSheet.create({
   },
   tipContainer: {
     paddingBottom: 12,
-  
     paddingHorizontal: 12,
+    textAlign: 'justify',
   },
   button: {
     width: '100%',

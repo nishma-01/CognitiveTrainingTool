@@ -19,7 +19,6 @@ const Quiz = ({navigation}) => {
   const [score, setScore] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-
   const getQuiz = async() => {
     setIsLoading(true)
     const url = 'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986';
@@ -56,11 +55,10 @@ const Quiz = ({navigation}) => {
     if(questionNumber === 9) {
       handleShowResult()
     }
-    
   }
 
   const handleShowResult = () => {
-    navigation.navigate('Results', { //have to ensure this is in the results screen too
+    navigation.navigate('Results', { //have to ensure this is in the results screen too to pass score to results screen
     score: score
     })
   }
@@ -82,7 +80,7 @@ const Quiz = ({navigation}) => {
         <Animated.View style={[{
           height: 20,
           borderRadius: 20,
-          backgroundColor: '#007ea7'
+          backgroundColor: colors.darkBlue,
         },
         {
           width: progressAnim
@@ -103,15 +101,32 @@ const Quiz = ({navigation}) => {
               style={styles.modalToggle}
               onPress={() => setModalOpen(false)}
             />
-          <Text style={styles.modalText}>
-            {`INSTRUCTIONS: \nThis quiz presents 10 general knowledge questions. Read the question and select the answer you think is correct.
-            \nIf you are stuck you may press the 'SKIP' button on the bottom left of the screen to skip the question. 
-            \nAfter you have selected an answer, the question will automatically move on to the next. Once all questions have been answered, your results will automatically pop up.
-            \nRESULTS: \nFor each correct answer you will score 10 points. Each wrong answer or skipped question will score 0 points. 
-            \nYour results are displayed at the end of the quiz and depending on your score, you will recieve a classification for your achievement level - try to beat this next time!
-            \nBENEFITS: \nStudies have shown that practicing quizzes improve memory, recall and ultimately cognition overall. 
-            \nImproving memory has been shown to result in 'transfer effects', meaning it in turn improves other area of cognition as a secondary effect. Hence, training for a short time each day may improve these areas of cognition too.
-          `}</Text>
+
+            <View style={styles.modalSectionContainer}>
+              <Text style={styles.modalSectionHeader}>Instructions:</Text>
+              <Text style={styles.modalSectionMain}>
+                This quiz presents 10 general knowledge questions. Read the question and tap your answer. 
+                {"\n\n"}If you are stuck, tap the 'SKIP' button to move to the next question. 
+                {"\n\n"}Your results will automatically display after you answer or skip the last question.
+                </Text>
+            </View>
+
+            <View style={styles.modalSectionContainer}>
+              <Text style={styles.modalSectionHeader}>Scoring:</Text>
+              <Text style={styles.modalSectionMain}>
+              Each correct answer scores you 10 points. A wrong answer or skipped question scores 0 points. 
+              {"\n\n"}Your results are displayed at the end of the quiz and depending on your score, you will recieve a classification for your achievement level - try to beat this next time!
+              </Text>
+            </View>
+
+            <View style={styles.modalSectionContainer}>
+              <Text style={styles.modalSectionHeader}>Benefits:</Text>
+              <Text style={styles.modalSectionMain}>
+              Studies have shown that practicing quizzes improve memory, recall and cognition overall. 
+              {"\n\n"}Evidence suggests that training memory results in 'transfer effects', meaning it improves other areas of cognition as a secondary effect. 
+              {"\n\n"}Hence, training for a short time each day may improve memory, attention, processing speed and other areas of cognition too, with a hope to reduce cognitive decline.
+              </Text>
+            </View>
         </View>
       </Modal>
 
@@ -233,7 +248,6 @@ question: {
 questionNumber: {
   fontSize: 20,
   fontWeight: '800'
-
 },
 optionsText: {
   fontSize: 18,
@@ -255,8 +269,22 @@ modalToggle: {
   paddingBottom: 20,
   alignSelf: 'center',
 },
-modalText: {
+modalSectionContainer: {
+  paddingVertical: 16,
+  marginVertical: 10,
+  borderColor: colors.lightBlue,
+  borderWidth: 4,  
+  paddingHorizontal: 12,
+  borderRadius: 12,
+},
+modalSectionHeader: {
+  fontSize: 26,
+    fontWeight: '600',
+    color: colors.salmonPink,
+},
+modalSectionMain: {
   textAlign: 'justify',
+  fontSize: 14,
 },
 loader: {
   paddingTop: 100,

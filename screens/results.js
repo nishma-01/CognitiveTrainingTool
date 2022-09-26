@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     alignSelf: 'center',
     fontStyle: "italic",
+    color: colors.lightBlue,
     },
     note: {
       fontStyle: "italic",
