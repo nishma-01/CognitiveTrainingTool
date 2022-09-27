@@ -191,6 +191,12 @@ const Quiz = ({navigation}) => {
           onPress = {handleShowResult}>
           <Text style={styles.buttonText}>SKIP TO RESULTS</Text>
         </TouchableOpacity> }
+
+        <TouchableOpacity 
+      onPress={() => navigation.navigate("Home")}
+      style={styles.button}>
+        <Text style={styles.buttonText}>RETURN HOME</Text>
+      </TouchableOpacity>
       </View>
       </View>
       )}
