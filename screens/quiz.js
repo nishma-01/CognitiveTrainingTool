@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator, Animated } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator, Animated, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../utils/colors";
 
@@ -102,6 +102,7 @@ const Quiz = ({navigation}) => {
               onPress={() => setModalOpen(false)}
             />
 
+            <ScrollView>
             <View style={styles.modalSectionContainer}>
               <Text style={styles.modalSectionHeader}>Instructions:</Text>
               <Text style={styles.modalSectionMain}>
@@ -127,6 +128,7 @@ const Quiz = ({navigation}) => {
               {"\n\n"}Hence, training for a short time each day may improve memory, attention, processing speed and other areas of cognition too, with a hope to reduce cognitive decline.
               </Text>
             </View>
+            </ScrollView>
         </View>
       </Modal>
 
@@ -276,21 +278,21 @@ modalToggle: {
   alignSelf: 'center',
 },
 modalSectionContainer: {
-  paddingVertical: 16,
-  marginVertical: 10,
+  paddingVertical: 6,
+  marginVertical: 8,
   borderColor: colors.lightBlue,
   borderWidth: 4,  
   paddingHorizontal: 12,
   borderRadius: 12,
 },
 modalSectionHeader: {
-  fontSize: 26,
+  fontSize: 24,
     fontWeight: '600',
     color: colors.salmonPink,
 },
 modalSectionMain: {
   textAlign: 'justify',
-  fontSize: 14,
+  fontSize: 16,
 },
 loader: {
   paddingTop: 100,

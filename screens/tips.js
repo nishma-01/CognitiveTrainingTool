@@ -1,6 +1,6 @@
 
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
 import Title from "../components/title";
 import { colors } from "../utils/colors";
 
@@ -32,6 +32,7 @@ const Tips = ({navigation}) => {
       <Title titleText='Cognition Tips' />
         </View>
         
+        <ScrollView>
       {Facts.map((Fact, Index) => {
         return (
           <View key={Index}>
@@ -53,6 +54,7 @@ const Tips = ({navigation}) => {
           </View>
           )
         })}
+        </ScrollView>
       
       <TouchableOpacity
         onPress={() => {navigation.navigate("Home")}}
