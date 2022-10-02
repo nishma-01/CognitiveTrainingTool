@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Modal, ActivityIndicator, Ani
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../utils/colors";
 
+//moder fisher-yates shuffle function src: https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#The_modern_algorithm
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i-- ) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -16,14 +17,14 @@ const Quiz = ({navigation}) => {
   const [questions, setQuestions] = useState();
   const [questionNumber, setQuestionNumber] = useState(0);
   const [options, setOptions] = useState([]);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
 
   const getQuiz = async() => {
     setIsLoading(true)
     const url = 'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple&encode=url3986';
-    const res = await fetch(url);
-    const data = await res.json();
+    const response = await fetch(url);
+    const data = await response.json();
     setQuestions(data.results);
     setOptions(generateOptionsAndShuffle(data.results[0]))
     setIsLoading(false)
@@ -63,7 +64,7 @@ const Quiz = ({navigation}) => {
     })
   }
 
-  // Progress bar - not fully implemented due to difficulty with input range
+  // Progress bar - not fully implemented but since it's a 'could have' feature, have left for now, would return to if have time or future iterations
   const [progress, setProgress] = useState(new Animated.Value(0));
   const progressAnim = progress.interpolate({
       inputRange: [0, 100],
